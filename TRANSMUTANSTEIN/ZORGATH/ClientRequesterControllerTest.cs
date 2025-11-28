@@ -30,6 +30,7 @@ public class ClientRequesterControllerTest
             ["test"] = new TestClientRequestHandler(expected)
         };
         ClientRequesterController controller = new(handlers);
+        controller.ControllerContext = new ControllerContextForTesting();
 
         Dictionary<string, string> formData = new()
         {

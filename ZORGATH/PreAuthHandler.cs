@@ -56,8 +56,8 @@ public class PreAuthHandler : IClientRequestHandler
 
                     // Clan information.
                     account.ClanId,
-                    account.Clan!.Name,
-                    account.Clan!.Tag,
+                    account.Clan!.Name ?? string.Empty,
+                    account.Clan!.Tag ?? string.Empty,
                     account.ClanTier,
 
                     // TODO: CloudStorage.
