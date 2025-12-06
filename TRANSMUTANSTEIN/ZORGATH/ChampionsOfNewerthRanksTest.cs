@@ -3,7 +3,7 @@
 [TestClass]
 public class ChampionsOfNewerthRanksTest
 {
-    [DataTestMethod]
+    [TestMethod]
     [DataRow(1000, ChampionsOfNewerthRank.NoRank)]
     [DataRow(1100, ChampionsOfNewerthRank.NoRank)]
     [DataRow(1200, ChampionsOfNewerthRank.NoRank)]
@@ -66,13 +66,13 @@ public class ChampionsOfNewerthRanksTest
     [DataRow(1922, ChampionsOfNewerthRank.LegendaryOne)]
     [DataRow(1950, ChampionsOfNewerthRank.Immortal)]
     [DataRow(2000, ChampionsOfNewerthRank.Immortal)]
-    public void TestRankForMmr(double mmr, int expectedRank)
+    public void TestRankForMmr(double mmr, ChampionsOfNewerthRank expectedRank)
     {
         int rank = ChampionsOfNewerthRanks.RankForMmr(mmr);
-        Assert.AreEqual(expectedRank, rank);
+        Assert.AreEqual((int)expectedRank, rank);
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow(1100, 88)] // Precomputed.
     [DataRow(1250, 0)]
     [DataRow(1315, 50)]  // Exactly halfway between a rank

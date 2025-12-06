@@ -69,31 +69,46 @@ public class MatchHistoryOverviewHandler : IClientRequestHandler
         // This would match [CLAN]nickname
         string nicknameSuffix = $"]{nickname}";
 
-        // Get the list of comma-separated stats.
-        List<string> playerMatchResultsList = await bountyContext.PlayerMatchResults
-            .Where(results => recentMatchIds.Contains(results.match_id) && (results.nickname == nickname || results.nickname.EndsWith(nicknameSuffix)))
-            .OrderByDescending(results => results.match_id)
-            .Select(results => string.Join(',',
-                results.match_id,
-                results.wins,
-                results.team,
-                results.herokills,
-                results.deaths,
-                results.heroassists,
-                results.hero_id,
-                results.secs,
-                results.map,
-                results.mdt,
-                results.cli_name))
-            .ToListAsync();
 
-        // Turn it into a Dictionary with keys ranging from m0 to m99.
-        Dictionary<string, string> matchHistoryOverview = new();
-        for (int i = 0; i < playerMatchResultsList.Count; i++)
-        {
-            matchHistoryOverview.Add("m" + i, playerMatchResultsList[i]);
-        }
+	    var rawResults = await bountyContext.PlayerMatchResults
+	        .Where(results => recentMatchIds.Contains(results.match_id) && (results.nickname == nickname || results.nickname.EndsWith(nicknameSuffix)))
+	        .OrderByDescending(results => results.match_id)
+	        .Select(results => new
+	        {
+		        results.match_id,
+		        results.wins,
+		        results.team,
+		        results.herokills,
+		        results.deaths,
+		        results.heroassists,
+		        results.hero_id,
+		        results.secs,
+		        results.map,
+		        results.mdt,
+		        results.cli_name
+    	    })
+	        .ToListAsync();
 
-        return matchHistoryOverview;
+	    // Turn it into a Dictionary with keys ranging from m0 to m99.
+	    Dictionary<string, string> matchHistoryOverview = rawResults
+		    .Select((results, index) => new
+		    {
+			    Key = $"m{index}", // Calculate the key (m0, m1, m2, ... m99)
+			    Value = string.Join(',', // Calculate the comma-separated string value
+				    results.match_id,
+				    results.wins,
+				    results.team,
+				    results.herokills,
+				    results.deaths,
+				    results.heroassists,
+				    results.hero_id,
+				    results.secs,
+				    results.map,
+				    results.mdt,
+				    results.cli_name)
+		    })
+		    .ToDictionary(item => item.Key, item => item.Value);
+
+		return matchHistoryOverview;
     }
 }
