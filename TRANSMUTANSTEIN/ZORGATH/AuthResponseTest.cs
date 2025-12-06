@@ -138,8 +138,8 @@ public class AuthResponseTest
         AuthResponse authResponse = new(accountDetails, cookie, clientIpAddress, hostTime, chatServerUrl, icbUrl, new("initial_vector", "hash_code", "key_version"));
         Assert.AreEqual(accountDetails.AccountId, authResponse.AccountId);
         Assert.AreEqual(accountDetails.AccountType, authResponse.AccountType);
-        Assert.AreEqual(false, authResponse.AccountCloudStorageInfo.UseCloud);
-        Assert.AreEqual(false, authResponse.AccountCloudStorageInfo.CloudAutoUpload);
+        Assert.IsFalse(authResponse.AccountCloudStorageInfo.UseCloud);
+        Assert.IsFalse(authResponse.AccountCloudStorageInfo.CloudAutoUpload);
         Assert.AreEqual(accountDetails.AccountStats, authResponse.AccountStats.First());
         Assert.AreSame(accountDetails.SelectedUpgradeCodes, authResponse.SelectedUpgrades);
         Assert.AreEqual(accountDetails.AccountName, authResponse.Nickname);
@@ -150,7 +150,7 @@ public class AuthResponseTest
         Assert.AreEqual(hostTime, authResponse.HostTime);
         Assert.AreEqual(5, authResponse.VestedThreshold);
         Assert.AreEqual(chatServerUrl, authResponse.ChatUrl);
-        Assert.AreEqual(null, authResponse.ClanMemberInfo);
+        Assert.IsNull(authResponse.ClanMemberInfo);
         Assert.AreEqual(0.05f, authResponse.LeaverThreashold);
         Assert.AreEqual(accountDetails.IgnoredList, authResponse.IgnoredList[accountDetails.AccountId]);
         Assert.AreEqual(accountDetails.ClanRoster, authResponse.ClanRoster);

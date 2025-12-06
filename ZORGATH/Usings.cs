@@ -14,6 +14,10 @@ global using PhpSerializerNET;
 global using PUZZLEBOX;
 #endregion
 
+#region ProjectKongor Using Directives
+global using ProjectKongor.Protocol.Handlers;
+#endregion
+
 #region SecureRemotePassword Using Directives
 global using SecureRemotePassword;
 #endregion
