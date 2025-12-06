@@ -14,8 +14,13 @@ global using Microsoft.VisualStudio.TestTools.UnitTesting;
 global using PUZZLEBOX;
 #endregion
 
+#region EBULA Project Using Directives
+global using EBULA;
+#endregion
+
 #region ProjectKongor Using Directives
 global using ProjectKongor.Protocol.Handlers;
+global using ProjectKongor.Protocol.Registries;
 #endregion
 
 #region SecureRemotePassword Using Directives

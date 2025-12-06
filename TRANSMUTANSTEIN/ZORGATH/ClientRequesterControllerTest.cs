@@ -1,69 +1,136 @@
 ﻿namespace ZORGATH;
 
-using EBULA;
-
 [TestClass]
 public class ClientRequesterControllerTest
 {
-    private class TestClientRequestHandler : IClientRequestHandler
-    {
-        private readonly IActionResult _result;
-        public TestClientRequestHandler(IActionResult result)
-        {
-            _result = result;
-        }
+	private class TestOldClientRequestHandler : IOldClientRequestHandler
+	{
+		private readonly IActionResult _result;
+		public TestOldClientRequestHandler(IActionResult result)
+		{
+			_result = result;
+		}
 
-        public Task<IActionResult> HandleRequest(ControllerContext controllerContext, Dictionary<string, string> formData)
-        {
-            return Task.FromResult(_result);
-        }
-    }
+		public Task<IActionResult> HandleRequest(ControllerContext controllerContext, Dictionary<string, string> formData)
+		{
+			return Task.FromResult(_result);
+		}
+	}
 
-    [TestMethod]
-    public async Task HandlerIsInvoked()
-    {
-        IActionResult expected = new OkResult();
+	private class TestClientRequestHandler : IClientRequestHandler
+	{
+		private readonly IActionResult _result;
+		public TestClientRequestHandler(IActionResult result)
+		{
+			_result = result;
+		}
 
-        // Register our fake ClientRequesterHandler.
-        Dictionary<string, IClientRequestHandler> handlers = new()
-        {
-            ["test"] = new TestClientRequestHandler(expected)
-        };
-        ClientRequesterController controller = new(handlers);
-        controller.ControllerContext = new ControllerContextForTesting();
+		public Task<IActionResult> HandleRequest(Dictionary<string, string> formData)
+		{
+			return Task.FromResult(_result);
+		}
+	}
 
-        Dictionary<string, string> formData = new()
-        {
-            ["f"] = "test"
-        };
+	[TestMethod]
+	public async Task OldHandler_IsInvoked()
+	{
+		IActionResult expected = new OkResult();
 
-        // Trigger our fake ClientRequesterHandler.
-        var actual = await controller.ClientRequester(formData);
-        Assert.AreSame(expected, actual);
-    }
+		// Register our fake old handler
+		var oldHandlers = new Dictionary<string, IOldClientRequestHandler>()
+		{
+			["test"] = new TestOldClientRequestHandler(expected)
+		};
 
-    [TestMethod]
-    public async Task UnknownRequest()
-    {
-        ClientRequesterController controller = new(new Dictionary<string, IClientRequestHandler>());
-        Dictionary<string, string> formData = new()
-        {
-            ["f"] = "test2"
-        };
+		// Empty new registry
+		var registry = new FakeClientRequestHandlerRegistry();
 
-        // Trigger an unknown request.
-        var actual = await controller.ClientRequester(formData);
-        Assert.IsInstanceOfType(actual, typeof(BadRequestObjectResult));
-    }
+		var controller = new ClientRequesterController(oldHandlers, registry)
+		{
+			ControllerContext = new ControllerContextForTesting()
+		};
 
-    [TestMethod]
-    public async Task UnspecifiedRequest()
-    {
-        ClientRequesterController controller = new(new Dictionary<string, IClientRequestHandler>());
-        Dictionary<string, string> formData = new();
+		var formData = new Dictionary<string, string>()
+		{
+			["f"] = "test"
+		};
 
-        // Trigger an unspecified request.
-        var actual = await controller.ClientRequester(formData);
-        Assert.IsInstanceOfType(actual, typeof(BadRequestObjectResult));
-    }
+		var actual = await controller.ClientRequester(formData);
+		Assert.AreSame(expected, actual);
+	}
+
+	[TestMethod]
+	public async Task NewHandler_IsInvoked()
+	{
+		IActionResult expected = new OkResult();
+
+		// Empty old handlers
+		var oldHandlers = new Dictionary<string, IOldClientRequestHandler>();
+
+		// Register our fake new handler
+		var registry = new FakeClientRequestHandlerRegistry(new Dictionary<string, IClientRequestHandler>()
+		{
+			["test"] = new TestClientRequestHandler(expected)
+		});
+
+		var controller = new ClientRequesterController(oldHandlers, registry)
+		{
+			ControllerContext = new ControllerContextForTesting()
+		};
+
+		var formData = new Dictionary<string, string>()
+		{
+			["f"] = "test"
+		};
+
+		var actual = await controller.ClientRequester(formData);
+		Assert.AreSame(expected, actual);
+	}
+
+	[TestMethod]
+	public async Task UnknownRequest_ReturnsBadRequest()
+	{
+		var controller = new ClientRequesterController(
+			new Dictionary<string, IOldClientRequestHandler>(),
+			new FakeClientRequestHandlerRegistry()
+		);
+
+		var formData = new Dictionary<string, string>()
+		{
+			["f"] = "unknown"
+		};
+
+		var actual = await controller.ClientRequester(formData);
+		Assert.IsInstanceOfType(actual, typeof(BadRequestObjectResult));
+	}
+
+	[TestMethod]
+	public async Task UnspecifiedRequest_ReturnsBadRequest()
+	{
+		var controller = new ClientRequesterController(
+			new Dictionary<string, IOldClientRequestHandler>(),
+			new FakeClientRequestHandlerRegistry()
+		);
+
+		var formData = new Dictionary<string, string>();
+
+		var actual = await controller.ClientRequester(formData);
+		Assert.IsInstanceOfType(actual, typeof(BadRequestObjectResult));
+	}
+}
+
+// Fake registry implementation for tests
+public class FakeClientRequestHandlerRegistry : IClientRequestHandlerRegistry
+{
+	public IReadOnlyDictionary<string, IClientRequestHandler> Handlers { get; }
+
+	public FakeClientRequestHandlerRegistry()
+	{
+		Handlers = new Dictionary<string, IClientRequestHandler>();
+	}
+
+	public FakeClientRequestHandlerRegistry(Dictionary<string, IClientRequestHandler> handlers)
+	{
+		Handlers = handlers;
+	}
 }
