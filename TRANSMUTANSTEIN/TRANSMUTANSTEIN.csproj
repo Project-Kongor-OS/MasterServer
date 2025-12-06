@@ -28,8 +28,8 @@
   <ItemGroup>
     <ProjectReference Include="..\EBULA\EBULA.csproj" />
     <ProjectReference Include="..\KINESIS\KINESIS.csproj" />
-    <ProjectReference Include="..\ServerCore\Core\ServerCore.csproj" />
-    <ProjectReference Include="..\SKELETON-KING\SKELETON-KING.csproj" />
+    <ProjectReference Include="..\KongorServerCore\Core\KongerServerCore.csproj" />
+    <ProjectReference Include="..\Server\KongorServer.csproj" />
     <ProjectReference Include="..\ZORGATH\ZORGATH.csproj" />
   </ItemGroup>
 

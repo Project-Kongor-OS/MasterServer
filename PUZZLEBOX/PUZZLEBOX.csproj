@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ServerCore\Core\ServerCore.csproj" />
+    <ProjectReference Include="..\KongorServerCore\Core\KongerServerCore.csproj" />
   </ItemGroup>
 
 </Project>
