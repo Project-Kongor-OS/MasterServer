@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
 VisualStudioVersion = 18.0.11222.15
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SKELETON-KING", "SKELETON-KING\SKELETON-KING.csproj", "{CC865106-C991-4206-87CF-F62485D84F39}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZORGATH", "ZORGATH\ZORGATH.csproj", "{10BF59AA-38D8-4B42-94EB-B16E2571D342}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TRANSMUTANSTEIN", "TRANSMUTANSTEIN\TRANSMUTANSTEIN.csproj", "{E995B774-0D4A-4046-BEDE-8968639A64B9}"
@@ -15,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KINESIS", "KINESIS\KINESIS.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EBULA", "EBULA\EBULA.csproj", "{55A69A14-A3CE-4BDB-85CA-13E2FFDB1E07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerCore", "ServerCore\Core\ServerCore.csproj", "{461E09D5-0C42-3CA2-F57D-5BBD85319C4F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KongorServer", "Server\KongorServer.csproj", "{E0568D2C-3263-DCE1-8DE3-906C5F757140}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KongerServerCore", "KongorServerCore\Core\KongerServerCore.csproj", "{21CB4BDF-C852-582F-3C56-289861A68A1A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CC865106-C991-4206-87CF-F62485D84F39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CC865106-C991-4206-87CF-F62485D84F39}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CC865106-C991-4206-87CF-F62485D84F39}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CC865106-C991-4206-87CF-F62485D84F39}.Release|Any CPU.Build.0 = Release|Any CPU
 		{10BF59AA-38D8-4B42-94EB-B16E2571D342}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{10BF59AA-38D8-4B42-94EB-B16E2571D342}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10BF59AA-38D8-4B42-94EB-B16E2571D342}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -47,10 +43,14 @@ Global
 		{55A69A14-A3CE-4BDB-85CA-13E2FFDB1E07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55A69A14-A3CE-4BDB-85CA-13E2FFDB1E07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55A69A14-A3CE-4BDB-85CA-13E2FFDB1E07}.Release|Any CPU.Build.0 = Release|Any CPU
-		{461E09D5-0C42-3CA2-F57D-5BBD85319C4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{461E09D5-0C42-3CA2-F57D-5BBD85319C4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{461E09D5-0C42-3CA2-F57D-5BBD85319C4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{461E09D5-0C42-3CA2-F57D-5BBD85319C4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0568D2C-3263-DCE1-8DE3-906C5F757140}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0568D2C-3263-DCE1-8DE3-906C5F757140}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0568D2C-3263-DCE1-8DE3-906C5F757140}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0568D2C-3263-DCE1-8DE3-906C5F757140}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21CB4BDF-C852-582F-3C56-289861A68A1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21CB4BDF-C852-582F-3C56-289861A68A1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21CB4BDF-C852-582F-3C56-289861A68A1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21CB4BDF-C852-582F-3C56-289861A68A1A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

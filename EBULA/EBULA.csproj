@@ -11,8 +11,8 @@
 </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\KongorServerCore\Core\KongerServerCore.csproj" />
     <ProjectReference Include="..\PUZZLEBOX\PUZZLEBOX.csproj" />
-    <ProjectReference Include="..\ServerCore\Core\ServerCore.csproj" />
     <ProjectReference Include="..\ZORGATH\ZORGATH.csproj" />
   </ItemGroup>
 

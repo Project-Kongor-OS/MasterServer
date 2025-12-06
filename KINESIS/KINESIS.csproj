@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\KongorServerCore\Core\KongerServerCore.csproj" />
     <ProjectReference Include="..\PUZZLEBOX\PUZZLEBOX.csproj" />
-    <ProjectReference Include="..\ServerCore\Core\ServerCore.csproj" />
     <InternalsVisibleTo Include="TRANSMUTANSTEIN" />
   </ItemGroup>
 

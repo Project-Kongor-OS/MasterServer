@@ -28,8 +28,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\KINESIS\KINESIS.csproj" />
+    <ProjectReference Include="..\KongorServerCore\Core\KongerServerCore.csproj" />
     <ProjectReference Include="..\PUZZLEBOX\PUZZLEBOX.csproj" />
-    <ProjectReference Include="..\ServerCore\Core\ServerCore.csproj" />
   </ItemGroup>
 
 </Project>
