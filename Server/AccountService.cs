@@ -2,7 +2,7 @@
 using ProjectKongor.Protocol.Services;
 using PUZZLEBOX;
 
-namespace SKELETON_KING;
+namespace ProjectKongor.Server;
 
 public class AccountService : IAccountService
 {

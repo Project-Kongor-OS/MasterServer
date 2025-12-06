@@ -3,11 +3,10 @@ using ProjectKongor.Protocol.DTOs;
 using ProjectKongor.Protocol.HTTP.Responses;
 using ProjectKongor.Protocol.Services;
 using PUZZLEBOX;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace SKELETON_KING;
+namespace ProjectKongor.Server;
 
-public class StatsService : IPlayerStatsService
+public class StatsService : IStatsService
 {
 	private const int NumberOfHeroesTheGameHas = 139;
 
@@ -23,14 +22,8 @@ public class StatsService : IPlayerStatsService
 		_context = context;
 	}
 
-	public async Task<ShowSimpleStatsData?> GetShowSimpleStatsAsync(string nickname, string cookie)
+	public async Task<ShowSimpleStatsData?> GetShowSimpleStatsAsync(string nickname)
 	{
-		// Validate cookie
-		bool validCookie = await _context.Accounts.AnyAsync(a => a.Cookie == cookie);
-		if (!validCookie)
-			return null;
-
-		// Query and project
 		ShowSimpleStatsData? data = await _context.Accounts
 			.Where(a => a.Name == nickname)
 			.Select(a => new ShowSimpleStatsData(
@@ -68,5 +61,87 @@ public class StatsService : IPlayerStatsService
 			.FirstOrDefaultAsync();
 
 		return data;
+	}
+
+	/// <summary>
+	/// Returns the serialized match IDs for a player for the given table.
+	/// </summary>
+	public async Task<string?> GetSerializedMatchIdsAsync(string nickname, string table)
+	{
+		if (string.IsNullOrEmpty(nickname) || string.IsNullOrEmpty(table))
+			return null;
+
+		return table switch
+		{
+			"campaign" => await _context.Accounts
+				.Where(a => a.Name == nickname)
+				.Select(a => a.PlayerSeasonStatsRanked.SerializedMatchIds)
+				.FirstOrDefaultAsync(),
+			"campaign_casual" => await _context.Accounts
+				.Where(a => a.Name == nickname)
+				.Select(a => a.PlayerSeasonStatsRankedCasual.SerializedMatchIds)
+				.FirstOrDefaultAsync(),
+			"player" => await _context.Accounts
+				.Where(a => a.Name == nickname)
+				.Select(a => a.PlayerSeasonStatsPublic.SerializedMatchIds)
+				.FirstOrDefaultAsync(),
+			"midwars" => await _context.Accounts
+				.Where(a => a.Name == nickname)
+				.Select(a => a.PlayerSeasonStatsMidWars.SerializedMatchIds)
+				.FirstOrDefaultAsync(),
+			_ => null
+		};
+	}
+
+	/// <summary>
+	/// Given a serialized list of match ids, returns information about the last N matches.
+	/// </summary>
+	public async Task<Dictionary<string, string>> GetMatchHistoryOverviewAsync(
+		string nickname,
+		string serializedMatchIds,
+		int numberOfMatches)
+	{
+		if (string.IsNullOrEmpty(nickname) || string.IsNullOrEmpty(serializedMatchIds) || numberOfMatches <= 0)
+			return new Dictionary<string, string>();
+
+		List<string> allMatchIds = serializedMatchIds.Split('|', StringSplitOptions.RemoveEmptyEntries).ToList();
+		IEnumerable<int> recentMatchIds = allMatchIds
+			.TakeLast(numberOfMatches)
+			.Reverse()
+			.Select(id => int.Parse(id));
+
+		// This would match [CLAN]nickname
+		string nicknameSuffix = $"]{nickname}";
+
+		var rawResults = await _context.PlayerMatchResults
+			.Where(r => recentMatchIds.Contains(r.match_id) &&
+						(r.nickname == nickname || r.nickname.EndsWith(nicknameSuffix)))
+			.OrderByDescending(r => r.match_id)
+			.Select(r => new
+			{
+				r.match_id,
+				r.wins,
+				r.team,
+				r.herokills,
+				r.deaths,
+				r.heroassists,
+				r.hero_id,
+				r.secs,
+				r.map,
+				r.mdt,
+				r.cli_name
+			})
+			.ToListAsync();
+
+		return rawResults
+			.Select((r, index) => new
+			{
+				// Calculate the key(m0, m1, m2, ... m99)
+				Key = $"m{index}",
+				// Construct the comma-separated string value
+				Value = string.Join(',', r.match_id, r.wins, r.team, r.herokills, r.deaths, r.heroassists,
+									  r.hero_id, r.secs, r.map, r.mdt, r.cli_name)
+			})
+			.ToDictionary(x => x.Key, x => x.Value);
 	}
 }
