@@ -7,9 +7,9 @@ KINESIS/bin
 KINESIS/obj
 PUZZLEBOX/bin
 PUZZLEBOX/obj
-SKELETON-KING/bin
-SKELETON-KING/obj
-SKELETON-KING/SKELETON-KING.csproj.user
+Server/bin
+Server/obj
+Server/KongorServer.csproj.user
 TRANSMUTANSTEIN/bin
 TRANSMUTANSTEIN/obj
 ZORGATH/bin

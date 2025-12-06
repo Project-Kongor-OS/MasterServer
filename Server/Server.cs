@@ -48,7 +48,6 @@ public class Server
                  {"get_player_award_summ", new GetPlayerAwardSummHandler() },
                  {"get_seasons", new GetSeasonsHandler() },
                  {"logout", new LogoutHandler() },
-                 {"match_history_overview", new MatchHistoryOverviewHandler() },
                  {"pre_auth", new PreAuthHandler(srpAuthSessions) },
                  {"server_list", new ServerListHandler() },
                  {"show_stats", new ShowStatsHandler() },

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KongorServer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+17b1c847157566477545acfdead27ee214d92ad8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+874f243614f9f1db173de341f4c0d4ff25515305")]
 [assembly: System.Reflection.AssemblyProductAttribute("KongorServer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KongorServer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
