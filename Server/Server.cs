@@ -1,17 +1,16 @@
-namespace SKELETON_KING;
+namespace ProjectKongor.Server;
 
 using System.Collections.Concurrent;
 using EBULA;
 using KINESIS;
 using KINESIS.Server;
-using KONGOR.Shared.Handlers.Client;
 using Microsoft.EntityFrameworkCore;
 using ProjectKongor.Protocol.Registries;
 using ProjectKongor.Protocol.Services;
 using PUZZLEBOX;
 using ZORGATH;
 
-public class Program
+public class Server
 {
     public static void Main(string[] args)
     {
@@ -29,12 +28,14 @@ public class Program
         ConcurrentDictionary<string, SrpAuthSessionData> srpAuthSessions = new();
 
 		builder.Services.AddScoped<IAccountService, AccountService>();
-		builder.Services.AddScoped<IPlayerStatsService, StatsService>();
+        builder.Services.AddScoped<IAuthService, AuthService>();
+		builder.Services.AddScoped<IStatsService, StatsService>();
 
 		builder.Services.AddScoped<IClientRequestHandlerRegistry>(sp =>
 	        new ClientRequestHandlerRegistry(
 		        sp.GetRequiredService<IAccountService>(),
-				sp.GetRequiredService<IPlayerStatsService>()
+			    sp.GetRequiredService<IAuthService>(),
+				sp.GetRequiredService<IStatsService>()
 			)
         );
 
