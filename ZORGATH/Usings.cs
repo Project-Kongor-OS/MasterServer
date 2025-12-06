@@ -15,6 +15,8 @@ global using PUZZLEBOX;
 #endregion
 
 #region ProjectKongor Using Directives
+global using ProjectKongor.Libs;
+global using ProjectKongor.Protocol.Enums;
 global using ProjectKongor.Protocol.Handlers;
 global using ProjectKongor.Protocol.HTTP.Responses;
 #endregion

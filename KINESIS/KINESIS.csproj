@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PUZZLEBOX\PUZZLEBOX.csproj" />
+    <ProjectReference Include="..\ServerCore\Core\ServerCore.csproj" />
     <InternalsVisibleTo Include="TRANSMUTANSTEIN" />
   </ItemGroup>
 

@@ -10,6 +10,10 @@ global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.VisualStudio.TestTools.UnitTesting;
 #endregion
 
+#region SKELETON_KING Project Using Directives
+global using SKELETON_KING;
+#endregion
+
 #region PUZZLEBOX Project Using Directives
 global using PUZZLEBOX;
 #endregion
@@ -19,6 +23,8 @@ global using EBULA;
 #endregion
 
 #region ProjectKongor Using Directives
+global using ProjectKongor.Libs;
+global using ProjectKongor.Protocol.Enums;
 global using ProjectKongor.Protocol.Handlers;
 global using ProjectKongor.Protocol.Registries;
 #endregion
