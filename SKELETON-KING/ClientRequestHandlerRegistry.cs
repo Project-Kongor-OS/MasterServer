@@ -9,12 +9,13 @@ public class ClientRequestHandlerRegistry : IClientRequestHandlerRegistry
 {
 	public IReadOnlyDictionary<string, IClientRequestHandler> Handlers { get; }
 
-	public ClientRequestHandlerRegistry(IAccountService accountService)
+	public ClientRequestHandlerRegistry(IAccountService accountService, IPlayerStatsService statsService)
 	{
 		Handlers = new Dictionary<string, IClientRequestHandler>()
 		{
             // Alphabetized by protocol key
             {"nick2id", new Nick2IdHandler(accountService)},
+			{"show_simple_stats" , new ShowSimpleStatsHandler(statsService)}
 		};
 	}
 }

@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using EBULA;
 using KINESIS;
 using KINESIS.Server;
+using KONGOR.Shared.Handlers.Client;
 using Microsoft.EntityFrameworkCore;
 using ProjectKongor.Protocol.Registries;
 using ProjectKongor.Protocol.Services;
@@ -28,11 +29,13 @@ public class Program
         ConcurrentDictionary<string, SrpAuthSessionData> srpAuthSessions = new();
 
 		builder.Services.AddScoped<IAccountService, AccountService>();
+		builder.Services.AddScoped<IPlayerStatsService, StatsService>();
 
 		builder.Services.AddScoped<IClientRequestHandlerRegistry>(sp =>
 	        new ClientRequestHandlerRegistry(
-		        sp.GetRequiredService<IAccountService>()
-	        )
+		        sp.GetRequiredService<IAccountService>(),
+				sp.GetRequiredService<IPlayerStatsService>()
+			)
         );
 
 		builder.Services.AddSingleton<IReadOnlyDictionary<string, IOldClientRequestHandler>>(
@@ -47,7 +50,6 @@ public class Program
                  {"match_history_overview", new MatchHistoryOverviewHandler() },
                  {"pre_auth", new PreAuthHandler(srpAuthSessions) },
                  {"server_list", new ServerListHandler() },
-                 {"show_simple_stats", new ShowSimpleStatsHandler() },
                  {"show_stats", new ShowStatsHandler() },
                  {"srpAuth", new SrpAuthHandler(srpAuthSessions, new(), chatServerUrl: chatServerConfiguration.Address, icbUrl: "kongor.online") },
             }

@@ -9,6 +9,10 @@ global using Microsoft.Extensions.Configuration;
 global using PUZZLEBOX;
 #endregion
 
+#region
+global using ProjectKongor.Protocol.Enums;
+#endregion
+
 #region System Using Directives
 global using System.Collections.Concurrent;
 global using System.Diagnostics;

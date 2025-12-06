@@ -29,6 +29,7 @@
     <ProjectReference Include="..\EBULA\EBULA.csproj" />
     <ProjectReference Include="..\KINESIS\KINESIS.csproj" />
     <ProjectReference Include="..\ServerCore\Core\ServerCore.csproj" />
+    <ProjectReference Include="..\SKELETON-KING\SKELETON-KING.csproj" />
     <ProjectReference Include="..\ZORGATH\ZORGATH.csproj" />
   </ItemGroup>
 
