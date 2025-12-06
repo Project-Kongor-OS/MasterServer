@@ -2,7 +2,7 @@
 
 internal record ReplayAuthData(int AccountId, string PasswordSalt, string HashedPassword);
 
-public class ReplayAuthHandler : IServerRequestHandler
+public class ReplayAuthHandler : IOldServerRequestHandler
 {
     private readonly string _chatServerAddress;
     private readonly short _managerPort;

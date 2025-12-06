@@ -2,7 +2,7 @@
 
 internal record NewSessionAuthData(int AccountId, AccountType AccountType);
 
-public class NewSessionHandler : IServerRequestHandler
+public class NewSessionHandler : IOldServerRequestHandler
 {
     private readonly VersionProvider _versionProvider;
     private readonly string _chatServerAddress;

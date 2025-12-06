@@ -11,9 +11,9 @@ using ProjectKongor.Protocol.Handlers;
 
 public class ServerRequesterController : ControllerBase
 {
-    private readonly IReadOnlyDictionary<string, IServerRequestHandler> _serverRequestHandlers;
+    private readonly IReadOnlyDictionary<string, IOldServerRequestHandler> _serverRequestHandlers;
 
-    public ServerRequesterController(IReadOnlyDictionary<string, IServerRequestHandler> serverRequestHandlers)
+    public ServerRequesterController(IReadOnlyDictionary<string, IOldServerRequestHandler> serverRequestHandlers)
     {
         _serverRequestHandlers = serverRequestHandlers;
     }

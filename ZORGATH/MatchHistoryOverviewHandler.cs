@@ -3,7 +3,7 @@
 /// <summary>
 ///     Handler for "match_history_overview" request that fetches last "num" games played by a given player.
 /// </summary>
-public class MatchHistoryOverviewHandler : IClientRequestHandler
+public class MatchHistoryOverviewHandler : IOldClientRequestHandler
 {
     public async Task<IActionResult> HandleRequest(ControllerContext controllerContext, Dictionary<string, string> formData)
     {

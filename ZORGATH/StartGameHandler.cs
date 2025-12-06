@@ -12,7 +12,7 @@ internal class GameServerInfo
     }
 }
 
-public class StartGameHandler : IServerRequestHandler
+public class StartGameHandler : IOldServerRequestHandler
 {
     public async Task<IActionResult> HandleRequest(ControllerContext controllerContext, Dictionary<string, string> formData)
     {

@@ -1,7 +1,7 @@
 ﻿
 namespace ZORGATH;
 
-public class SetOnlineHandler : IServerRequestHandler
+public class SetOnlineHandler : IOldServerRequestHandler
 {
     public Task<IActionResult> HandleRequest(ControllerContext controllerContext, Dictionary<string, string> formData)
     {

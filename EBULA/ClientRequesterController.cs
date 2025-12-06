@@ -1,9 +1,10 @@
 ﻿namespace EBULA;
 
-using ZORGATH;
-using PUZZLEBOX;
 using Microsoft.AspNetCore.Mvc;
 using ProjectKongor.Protocol.Handlers;
+using ProjectKongor.Protocol.Registries;
+using PUZZLEBOX;
+using ZORGATH;
 
 [ApiController]
 [Route("client_requester.php")]
@@ -11,14 +12,18 @@ using ProjectKongor.Protocol.Handlers;
 
 public class ClientRequesterController : ControllerBase
 {
-    private readonly IReadOnlyDictionary<string, IClientRequestHandler> _clientRequestHandlers;
+    private readonly IReadOnlyDictionary<string, IOldClientRequestHandler> _oldHandlers;
+	private readonly IClientRequestHandlerRegistry _registry;
 
-    public ClientRequesterController(IReadOnlyDictionary<string, IClientRequestHandler> clientRequestHandlers)
-    {
-        _clientRequestHandlers = clientRequestHandlers;
-    }
+	public ClientRequesterController(
+		IReadOnlyDictionary<string, IOldClientRequestHandler> oldHandlers,
+		IClientRequestHandlerRegistry registry)
+	{
+		_oldHandlers = oldHandlers;
+		_registry = registry;
+	}
 
-    [HttpPost(Name = "Client Requester")]
+	[HttpPost(Name = "Client Requester")]
     public async Task<IActionResult> ClientRequester([FromForm] Dictionary<string, string> formData)
     {
         // Client requester has two forms for function identifiers. Some are
@@ -40,7 +45,16 @@ public class ClientRequesterController : ControllerBase
             return BadRequest("Unknown request.");
         }
 
-        if (_clientRequestHandlers.TryGetValue(functionName, out var requestHandler))
+		if (_registry.Handlers.TryGetValue(functionName, out var newHandler))
+		{
+			using var performanceCounter = new PerformanceCounter(HttpContext.RequestServices);
+			performanceCounter.Category = "ClientRequesterController";
+			performanceCounter.Subcategory = functionName;
+
+			return await newHandler.HandleRequest(formData);
+		}
+
+		if (_oldHandlers.TryGetValue(functionName, out var requestHandler))
         {
             using PerformanceCounter performanceCounter = new PerformanceCounter(HttpContext.RequestServices);
             performanceCounter.Category = "ClientRequesterController";

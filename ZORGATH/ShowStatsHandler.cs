@@ -2,7 +2,7 @@
 
 namespace ZORGATH;
 
-public class ShowStatsHandler : IClientRequestHandler
+public class ShowStatsHandler : IOldClientRequestHandler
 {
     public async Task<IActionResult> HandleRequest(ControllerContext controllerContext, Dictionary<string, string> formData)
     {

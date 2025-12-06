@@ -1,6 +1,6 @@
 ﻿namespace ZORGATH;
 
-public class LogoutHandler : IClientRequestHandler
+public class LogoutHandler : IOldClientRequestHandler
 {
     public async Task<IActionResult> HandleRequest(ControllerContext controllerContext, Dictionary<string, string> formData)
     {

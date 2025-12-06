@@ -1,6 +1,6 @@
 ﻿namespace ZORGATH;
 
-public class AcceptKeyHandler : IServerRequestHandler
+public class AcceptKeyHandler : IOldServerRequestHandler
 {
     public Task<IActionResult> HandleRequest(ControllerContext controllerContext, Dictionary<string, string> formData)
     {

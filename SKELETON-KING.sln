@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KINESIS", "KINESIS\KINESIS.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EBULA", "EBULA\EBULA.csproj", "{55A69A14-A3CE-4BDB-85CA-13E2FFDB1E07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerCore", "ServerCore\ServerCore.csproj", "{3CDDDA56-A1DF-640F-BEEC-06EF87DF0B96}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerCore", "ServerCore\Core\ServerCore.csproj", "{461E09D5-0C42-3CA2-F57D-5BBD85319C4F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +47,10 @@ Global
 		{55A69A14-A3CE-4BDB-85CA-13E2FFDB1E07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55A69A14-A3CE-4BDB-85CA-13E2FFDB1E07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55A69A14-A3CE-4BDB-85CA-13E2FFDB1E07}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3CDDDA56-A1DF-640F-BEEC-06EF87DF0B96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3CDDDA56-A1DF-640F-BEEC-06EF87DF0B96}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3CDDDA56-A1DF-640F-BEEC-06EF87DF0B96}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3CDDDA56-A1DF-640F-BEEC-06EF87DF0B96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{461E09D5-0C42-3CA2-F57D-5BBD85319C4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{461E09D5-0C42-3CA2-F57D-5BBD85319C4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{461E09D5-0C42-3CA2-F57D-5BBD85319C4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{461E09D5-0C42-3CA2-F57D-5BBD85319C4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

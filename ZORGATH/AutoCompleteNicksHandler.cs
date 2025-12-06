@@ -1,7 +1,6 @@
 namespace ZORGATH;
 
-
-public class AutoCompleteNicksHandler : IClientRequestHandler
+public class AutoCompleteNicksHandler : IOldClientRequestHandler
 {
     public async Task<IActionResult> HandleRequest(ControllerContext controllerContext, Dictionary<string, string> formData)
     {
@@ -15,6 +14,6 @@ public class AutoCompleteNicksHandler : IClientRequestHandler
             .ToListAsync();
         return new OkObjectResult(matchingAccountNames.Any() ?
             PHP.Serialize(new AutoCompleteNicksResponse(matchingAccountNames)) :
-            PHP.Serialize(new AccountLookupErrorResponse()));
+            PHP.Serialize(new AccountLookupErrorResponse(AccountLookupErrorResponseType.NoAutoCompleteMatches)));
     }
 }

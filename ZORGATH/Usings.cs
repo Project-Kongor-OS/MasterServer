@@ -16,6 +16,7 @@ global using PUZZLEBOX;
 
 #region ProjectKongor Using Directives
 global using ProjectKongor.Protocol.Handlers;
+global using ProjectKongor.Protocol.HTTP.Responses;
 #endregion
 
 #region SecureRemotePassword Using Directives

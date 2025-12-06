@@ -24,7 +24,7 @@ internal class ClientConnectionAccountDetails
     }
 }
 
-public class ClientConnectionHandler : IServerRequestHandler
+public class ClientConnectionHandler : IOldServerRequestHandler
 {
     public async Task<IActionResult> HandleRequest(ControllerContext controllerContext, Dictionary<string, string> formData)
     {

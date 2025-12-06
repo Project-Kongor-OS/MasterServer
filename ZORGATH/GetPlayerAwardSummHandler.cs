@@ -2,7 +2,7 @@
 
 internal record GetPlayerAwardSummData(int AccountId, PlayerAwardSummary AwardSummary);
 
-public class GetPlayerAwardSummHandler : IClientRequestHandler
+public class GetPlayerAwardSummHandler : IOldClientRequestHandler
 {
     public async Task<IActionResult> HandleRequest(ControllerContext controllerContext, Dictionary<string, string> formData)
     {

@@ -1,13 +1,14 @@
 namespace SKELETON_KING;
 
-using Microsoft.EntityFrameworkCore;
+using System.Collections.Concurrent;
 using EBULA;
 using KINESIS;
-using PUZZLEBOX;
-using System.Collections.Concurrent;
-using ZORGATH;
 using KINESIS.Server;
-using ProjectKongor.Protocol.Handlers;
+using Microsoft.EntityFrameworkCore;
+using ProjectKongor.Protocol.Registries;
+using ProjectKongor.Protocol.Services;
+using PUZZLEBOX;
+using ZORGATH;
 
 public class Program
 {
@@ -26,8 +27,16 @@ public class Program
         ChatServerConfiguration chatServerConfiguration = new ChatServerConfiguration("localhost", 11031, 11032, 11033);
         ConcurrentDictionary<string, SrpAuthSessionData> srpAuthSessions = new();
 
-        builder.Services.AddSingleton<IReadOnlyDictionary<string, IClientRequestHandler>>(
-            new Dictionary<string, IClientRequestHandler>()
+		builder.Services.AddScoped<IAccountService, AccountService>();
+
+		builder.Services.AddScoped<IClientRequestHandlerRegistry>(sp =>
+	        new ClientRequestHandlerRegistry(
+		        sp.GetRequiredService<IAccountService>()
+	        )
+        );
+
+		builder.Services.AddSingleton<IReadOnlyDictionary<string, IOldClientRequestHandler>>(
+            new Dictionary<string, IOldClientRequestHandler>()
             {
                 // NOTE: Please keep this list alphabetized by the string literal in the key.
                  {"autocompleteNicks", new AutoCompleteNicksHandler() },
@@ -45,8 +54,8 @@ public class Program
         );
 
         VersionProvider versionProvider = new VersionProvider("http://gitea.kongor.online", "/administrator/KONGOR/raw/branch/main/patch/");
-        builder.Services.AddSingleton<IReadOnlyDictionary<string, IServerRequestHandler>>(
-            new Dictionary<string, IServerRequestHandler>()
+        builder.Services.AddSingleton<IReadOnlyDictionary<string, IOldServerRequestHandler>>(
+            new Dictionary<string, IOldServerRequestHandler>()
             {
                 // NOTE: Please keep this list alphabetized by the string literal in the key.
                 {"accept_key", new AcceptKeyHandler() },

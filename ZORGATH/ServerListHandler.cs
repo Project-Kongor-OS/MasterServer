@@ -131,7 +131,7 @@ internal class ServerForJoinListResponse
     public readonly bool Zero = true;
 }
 
-public class ServerListHandler : IClientRequestHandler
+public class ServerListHandler : IOldClientRequestHandler
 {
     public Task<IActionResult> HandleRequest(ControllerContext controllerContext, Dictionary<string, string> formData)
     {

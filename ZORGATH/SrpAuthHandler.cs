@@ -1,6 +1,6 @@
 ﻿namespace ZORGATH;
 
-public class SrpAuthHandler : IClientRequestHandler
+public class SrpAuthHandler : IOldClientRequestHandler
 {
     private readonly ConcurrentDictionary<string, SrpAuthSessionData> _srpAuthSessions;
     private readonly SecInfo _secInfo;

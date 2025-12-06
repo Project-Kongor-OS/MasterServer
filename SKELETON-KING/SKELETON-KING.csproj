@@ -25,10 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ServerCore\ServerCore.csproj" />
     <ProjectReference Include="..\EBULA\EBULA.csproj" />
     <ProjectReference Include="..\KINESIS\KINESIS.csproj" />
     <ProjectReference Include="..\PUZZLEBOX\PUZZLEBOX.csproj" />
+    <ProjectReference Include="..\ServerCore\Core\ServerCore.csproj" />
     <ProjectReference Include="..\ZORGATH\ZORGATH.csproj" />
   </ItemGroup>
 
