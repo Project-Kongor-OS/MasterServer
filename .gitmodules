@@ -1,0 +1,3 @@
+[submodule "KongorServerCore"]
+	path = KongorServerCore
+	url = https://github.com/Project-Kongor-OS/KongorServerCore
